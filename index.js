@@ -11,7 +11,7 @@ const bodyParser = require('body-parser');
 dotenv.config();
 const app = express();
 const PORT = 4000;
-const MONGO_URI = "mongodb://localhost:27017/";
+const MONGO_URI = "mongodb+srv://ramyaS:fELsTgnrzzXlRnbH@blog.rfvwszw.mongodb.net/?retryWrites=true&w=majority&appName=blog";
 const DB_NAME = "Main_Blog";
 const APPLICATION_URL="http://localhost:3000";
 const SECRET_KEY = process.env.SECRET_KEY || "ramya1128"; 
