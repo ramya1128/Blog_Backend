@@ -13,11 +13,12 @@ const app = express();
 const PORT = 4000;
 const MONGO_URI = "mongodb://localhost:27017/";
 const DB_NAME = "Main_Blog";
+const APPLICATION_URL="http://localhost:3000";
 const SECRET_KEY = process.env.SECRET_KEY || "ramya1128"; 
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: APPLICATION_URL,
     credentials: true,
   })
 );
