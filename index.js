@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
+const bcryptjs = require("bcryptjs");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const multer = require('multer');
@@ -79,7 +79,7 @@ app.post("/register", async (req, res) => {
       return res.status(400).json({ message: "Username or Email already exists" });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcryptjs.hash(password, 10);
     const newUser = new User({ username, email, password: hashedPassword });
     await newUser.save();
     res.status(200).json({ message: "Registration successful" });
@@ -106,7 +106,7 @@ app.post("/login", async (req, res) => {
       return res.status(400).json({ message: "Invalid username/email or password" });
     }
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = await bcryptjs.compare(password, user.password);
     if (!isPasswordValid) {
       return res.status(400).json({ message: "Invalid username/email or password" });
     }
