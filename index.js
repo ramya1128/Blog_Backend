@@ -18,7 +18,7 @@ const SECRET_KEY = process.env.SECRET_KEY || "ramya1128";
 
 app.use(
   cors({
-    origin: APPLICATION_URL,
+    origin: process.env.APPLICATION_URL || "http://localhost:3000",
     credentials: true,
   })
 );
