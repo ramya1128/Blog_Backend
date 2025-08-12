@@ -12,23 +12,22 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 4000;  // Use PORT from environment variables if available
 const MONGO_URI = process.env.MONGO_URI;
-const DB_NAME = process.env.DB_NAME;
+//const DB_NAME = process.env.DB_NAME;
 const APPLICATION_URL = process.env.APPLICATION_URL;
 const SECRET_KEY = process.env.SECRET_KEY || "ramya1128"; 
 
-app.use(
-  cors({
-    origin: process.env.APPLICATION_URL || "http://localhost:3000",
-    credentials: true,
-  })
-);
 app.use(express.json());
 app.use('/uploads', express.static("uploads"));
 app.use(bodyParser.json());
 
+app.use(cors({
+  origin: APPLICATION_URL || "*", // Allow all or restrict to your frontend
+  credentials: true
+}));
+
 // Connect to MongoDB
 mongoose
-  .connect(MONGO_URI + DB_NAME)
+  .connect(MONGO_URI)
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Failed to connect to MongoDB:", err));
 
@@ -202,7 +201,7 @@ app.post('/subscribe', async (req, res) => {
 
       newSubscription.emailSent = true;
       await newSubscription.save();
-
+        
     res.status(200).json({ message: 'Subscription successful! Confirmation Email sent' });
   });
  } catch (err) {
@@ -345,5 +344,5 @@ app.post('/blogs/unlike/:id', authenticateToken, async (req, res) => {
 
 // Start the Server
 app.listen(PORT, () => {
-  console.log(`Server started on http://localhost:${PORT}`);
+  console.log(`Server started on http://localhost:${process.env.PORT}`);
 });
